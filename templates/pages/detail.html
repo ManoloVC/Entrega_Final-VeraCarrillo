@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h2>{{ object.titulo }}</h2>
-  <p>{{ object.contenido }}</p>
-  <p><em>Publicado el {{ object.fecha_publicacion }} por {{ object.autor }}</em></p>
+  <article class="card shadow-sm">
+    <div class="card-body">
+      <h2 class="card-title">{{ object.titulo }}</h2>
+      <p class="text-muted">Publicado el {{ object.fecha_publicacion }} por {{ object.autor }}</p>
+      <hr>
+      <p class="card-text">{{ object.contenido }}</p>
 
-  {% if user == object.autor %}
-    <a href="{% url 'page-delete' object.pk %}">Eliminar publicación</a>
-  {% endif %}
+      {% if user == object.autor %}
+        <div class="mt-4">
+          <a href="{% url 'page-delete' object.pk %}" class="btn btn-danger">Eliminar</a>
+        </div>
+      {% endif %}
+    </div>
+  </article>
 {% endblock %}

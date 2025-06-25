@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h2>Eliminar publicación</h2>
-  <p>¿Estás seguro que querés eliminar "{{ object.titulo }}"?</p>
-  <form method="post">
-    {% csrf_token %}
-    <button type="submit">Sí, eliminar</button>
-    <a href="{% url 'page-list' %}">Cancelar</a>
-  </form>
+  <div class="alert alert-warning text-center shadow-sm">
+    <h4 class="mb-3">¿Seguro que querés eliminar esta publicación?</h4>
+    <p><strong>{{ object.titulo }}</strong></p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+      <a href="{% url 'page-list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+  </div>
 {% endblock %}
