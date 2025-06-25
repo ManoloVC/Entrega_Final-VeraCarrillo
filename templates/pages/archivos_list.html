@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2 class="mb-3">Archivos Técnicos</h2>
+  {% if user.is_authenticated %}
+    <a href="{% url 'archivo-create' %}" class="btn btn-warning mb-3">
+      <i class="bi bi-upload"></i> Subir nuevo archivo
+    </a>
+  {% endif %}
+
+  {% for archivo in archivos %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5>{{ archivo.titulo }}</h5>
+        <p>{{ archivo.descripcion }}</p>
+        <a href="{{ archivo.archivo.url }}" target="_blank" class="btn btn-outline-secondary btn-sm">
+          <i class="bi bi-file-earmark-text"></i> Descargar
+        </a>
+        <small class="text-muted float-end">Subido por {{ archivo.autor }} el {{ archivo.fecha_subida }}</small>
+      </div>
+    </div>
+  {% empty %}
+    <p class="text-muted">No se han subido archivos todavía.</p>
+  {% endfor %}
+{% endblock %}

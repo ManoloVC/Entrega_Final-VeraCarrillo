@@ -3,6 +3,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Page
 from django.db.models import Q
+from .models import ArchivoTecnico
+from .forms import ArchivoTecnicoForm
 
 class PageListView(ListView):
     model = Page
@@ -37,3 +39,17 @@ class PageDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'pages/delete.html'
     success_url = reverse_lazy('page-list')
 
+class ArchivoListView(ListView):
+    model = ArchivoTecnico
+    template_name = 'pages/archivos_list.html'
+    context_object_name = 'archivos'
+
+class ArchivoCreateView(LoginRequiredMixin, CreateView):
+    model = ArchivoTecnico
+    form_class = ArchivoTecnicoForm
+    template_name = 'pages/archivos_form.html'
+    success_url = reverse_lazy('archivo-list')
+
+    def form_valid(self, form):
+        form.instance.autor = self.request.user
+        return super().form_valid(form)
