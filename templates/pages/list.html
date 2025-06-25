@@ -1,24 +1,43 @@
 {% extends 'base.html' %}
 {% block content %}
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h1>Publicaciones técnicas</h1>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-dark">Publicaciones técnicas</h1>
     {% if user.is_authenticated %}
-      <a href="{% url 'page-create' %}" class="btn btn-primary">+ Nueva publicación</a>
+      <a href="{% url 'page-create' %}" class="btn btn-warning shadow-sm">
+        <i class="bi bi-plus-lg"></i> Nueva publicación
+      </a>
     {% endif %}
   </div>
+
+  <!-- Buscador -->
+  <form method="get" class="mb-4">
+    <div class="input-group shadow-sm">
+      <input type="text" name="q" class="form-control" placeholder="Buscar por título o autor..." value="{{ request.GET.q }}">
+      <button class="btn btn-dark" type="submit">
+        <i class="bi bi-search"></i> Buscar
+      </button>
+    </div>
+  </form>
 
   {% if object_list %}
     <div class="list-group">
       {% for page in object_list %}
-        <div class="list-group-item">
-          <h5 class="mb-1">{{ page.titulo }}</h5>
-          <small>Publicado el {{ page.fecha_publicacion }} por {{ page.autor }}</small>
-          <p class="mb-1 mt-2">{{ page.contenido|truncatechars:120 }}</p>
-          <a href="{% url 'page-detail' page.pk %}" class="btn btn-outline-secondary btn-sm">Leer más</a>
+        <div class="list-group-item list-group-item-action mb-3 shadow-sm border border-light-subtle rounded">
+          <h5 class="mb-1 text-primary">{{ page.titulo }}</h5>
+          <small class="text-muted">Publicado el {{ page.fecha_publicacion }} por {{ page.autor }}</small>
+          <p class="mt-2 text-secondary">{{ page.contenido|truncatechars:160 }}</p>
+          <a href="{% url 'page-detail' page.pk %}" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-eye"></i> Leer más
+          </a>
         </div>
       {% endfor %}
     </div>
   {% else %}
-    <p class="text-muted">No hay páginas aún.</p>
+    <div class="alert alert-info text-center shadow-sm">
+      <i class="bi bi-info-circle"></i> No se encontraron publicaciones que coincidan con la búsqueda.
+    </div>
   {% endif %}
+
 {% endblock %}
+
