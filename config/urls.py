@@ -9,3 +9,4 @@ urlpatterns = [
     path('pages/', include('pages.urls')),
     path('about/', include('usuarios.urls_about')),
 ]
+
