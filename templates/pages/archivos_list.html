@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
   <h2 class="mb-3">Archivos Técnicos</h2>
-  {% if user.is_authenticated %}
-    <a href="{% url 'archivo-create' %}" class="btn btn-warning mb-3">
-      <i class="bi bi-upload"></i> Subir nuevo archivo
-    </a>
-  {% endif %}
+ {% if user.is_authenticated %}
+  <a href="{% url 'archivo-create' %}" class="btn btn-warning mb-3">
+    <i class="bi bi-upload"></i> Subir nuevo archivo
+  </a>
+{% endif %}
 
   {% for archivo in archivos %}
     <div class="card mb-3">
